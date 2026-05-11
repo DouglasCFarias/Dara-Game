@@ -3,35 +3,29 @@
 
 ## 📌 Descrição
 
-O projeto consiste em uma implementação completa do jogo **Dara**, permitindo que dois jogadores joguem em tempo real através de uma conexão de rede.
+O sistema implementa o jogo Dara com:
 
-A aplicação foi desenvolvida em Python e segue o modelo **cliente-servidor**, onde:
+- Comunicação distribuída via RPC
+- Controle centralizado do estado do jogo
+- Chat em tempo real
+- Controle automático de turnos
 
-- O **servidor** controla toda a lógica do jogo
-- O **cliente** é responsável pela interface e interação com o usuário
+O servidor é responsável por manter toda a lógica e sincronização do jogo, enquanto os clientes apenas realizam chamadas remotas para interação.
 
 ---
 
 ## 🧠 Tecnologias Utilizadas
 
 - Python 3
-- Sockets (TCP/IP)
-- Tkinter (Interface gráfica)
-- Programação orientada a objetos
+- XML-RPC
+- Tkinter
+- Programação Orientada a Objetos
 
 ---
 
 ## 🏗️ Arquitetura do Sistema
 
-O sistema foi dividido em camadas para garantir organização e desacoplamento:
-
-UI (Tkinter)
-↓
-Cliente (Socket)
-↓
-Servidor
-↓
-Lógica do Jogo (game.py)
+O sistema utiliza arquitetura cliente-servidor baseada em RPC.
 
 ---
 
@@ -54,8 +48,72 @@ Lógica do Jogo (game.py)
 
 ## 🚀 Como Executar
 
-### 1️⃣ Iniciar o servidor
+1️⃣ Iniciar o servidor RPC
 
-```bash
-python server.py
-python ui_client.py 
+python rpc_server.py
+
+Você verá:
+
+Servidor RPC iniciado na porta 8000...
+
+2️⃣ Abrir a interface do jogador X
+
+python rpc_client_x.py
+
+3️⃣ Abrir a interface do jogador O
+
+python rpc_client_o.py
+
+---
+🎯 Como Jogar
+
+🧩 Fase de Colocação
+
+Os jogadores posicionam suas peças alternadamente no tabuleiro.
+
+🔄 Fase de Movimentação
+
+Após posicionarem todas as peças:
+
+1. selecione uma peça
+2. mova para uma posição adjacente
+
+❌ Captura
+
+Ao formar 3 peças em linha:
+
+o jogador pode remover uma peça adversária
+
+💬 Chat
+
+Os jogadores podem trocar mensagens em tempo real durante a partida.
+
+🚪 Desistência
+
+O jogador pode desistir a qualquer momento utilizando o botão "Desistir".
+
+---
+
+🔌 RPC (Remote Procedure Call)
+
+A comunicação do sistema foi implementada utilizando XML-RPC.
+
+O servidor expõe funções remotas como:
+
+place_piece()
+
+move_piece()
+
+remove_piece()
+
+send_chat()
+
+get_state()
+
+quit_game()
+
+Os clientes utilizam ServerProxy para invocar esses métodos remotamente.
+
+
+
+
